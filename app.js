@@ -1,64 +1,72 @@
-// Import required core Node.js modules
-const os = require('os');
-const path = require('path');
-const fs = require('fs');
-
-// SECTION 1: Log System Information
-console.log('-------- SYSTEM INFORMATION --------');
-const computerPlatform = os.platform();
-const computerArch = process.arch;
-
-// Display system information in the console
-console.log(`Platform: ${computerPlatform}, Architecture: ${computerArch}`);
-
-// SECTION 2: Construct a File Path
-console.log('\n-------- PATH CONSTRUCTION --------');
-// Define path segments to join
-const folderPath = './info_files';
-const fileName = 'computer_info.txt';
-
-// Join paths using the path module
-const fullPath = path.join(folderPath, fileName);
-console.log(`Joined path: ${fullPath}`);
-
-// SECTION 3: Create and Write to a File
-console.log('\n-------- FILE CREATION --------');
-
-// Prepare content to write to the file
-const fileContent = `System Info Log
-Platform: ${computerPlatform}
-Architecture: ${computerArch}`;
-
-// Make sure the directory exists first (with error handling)
-fs.mkdir(folderPath, { recursive: true }, (err) => {
-  if (err && err.code !== 'EEXIST') {
-    console.error(`Error creating directory: ${err.message}`);
-    return;
-  }
+const mixedArray = [
+    "ifeanyi",
+    1994,
+    true,
+    undefined,
+    null,
+    12345678901234567890n,
+    Symbol("id"),
+    { name: "Alice" },
+    [1, 2, 3],
+    function () {
+      return "Hi";
+    },
+  ];
   
-  // Write to file asynchronously with error handling
-  fs.writeFile(fullPath, fileContent, (err) => {
-    if (err) {
-      console.error(`Error writing to file: ${err.message}`);
-      return;
-    }
-    
-    console.log(`File successfully created at: ${fullPath}`);
-    
-    // SECTION 4: Read and Log File Contents
-    console.log('\n-------- FILE CONTENTS --------');
-    
-    // Read the file we just created (asynchronously)
-    fs.readFile(fullPath, 'utf8', (err, data) => {
-      if (err) {
-        console.error(`Error reading file: ${err.message}`);
-        return;
-      }
-      
-      // Display the file contents
-      console.log('File contents:');
-      console.log(data);
-      console.log(`Assignment complete!`);
-    });
-  });
-});
+  console.log("Initial array:", mixedArray);
+  
+  //////////// PUSH ///////////////////////
+  console.log("1. push() - Adds elements to the end of an array.");
+  let pushResult = mixedArray.push(
+    { name: "Chinedu" }, // Another object
+    [4, 5, 6], // Another array
+    2025
+  );
+  console.log("Return value (new length):", pushResult);
+  console.log("Array after push():", mixedArray);
+  
+  /////////// POP() //////////////////////
+  console.log("2. pop() - Removes the last element from an array");
+  let popResult = mixedArray.pop(); // 2025
+  console.log("Return value (removed item):", popResult);
+  console.log("Array after pop():", mixedArray);
+  
+  ////////////// UNSHIFT() /////////////////
+  console.log("3. unshift() - adds elements to the beginning of an array");
+  let unshiftResult = mixedArray.unshift("nextgen", false, { status: "active" });
+  console.log("Return value (new length):", unshiftResult);
+  console.log("Array after unshift():", mixedArray);
+  
+  //////////// SHIFT() //////////////////
+  console.log("4. shift() - Removes the first element from an array");
+  let shiftResult = mixedArray.shift(); // // Should remove "nextgen"
+  console.log("Return value (removed item):", shiftResult);
+  console.log("Array after shift():", mixedArray);
+  
+  ///////////// SPLICE 1 REMOVE AN ELEMENT /////////////////
+  console.log("5. splice() - Changes array by removing an element");
+  
+  // Remove 1 element false then add "seamfix" and [true, false, true]
+  let spliceResult = mixedArray.splice(
+    0, // Start at index 0
+    1, // Remove  element false
+    "seamfix", // Insert the string "seamfix"
+    [true, false, true] // Insert the array [true, false, true]
+  );
+  
+  console.log("Return value (removed item):", spliceResult);
+  console.log("Array after splice():", mixedArray);
+  
+  ////// SPLICE 2 ADD ELEMENT  ///////////
+  console.log("6. splice() - Changes array by adding a new element");
+  let spliceResult2 = mixedArray.splice(
+    2, // start at index 2
+    0, // delete 0 elements
+    "coding is fun" //  a string
+    //  [99, 100] // insert an array
+  );
+  
+  console.log("Return value (new length):", spliceResult2); // should return []
+  console.log("Array after splice():", mixedArray);
+
+  

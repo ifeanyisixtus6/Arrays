@@ -1,3 +1,0 @@
-System Info Log
-Platform: win32
-Architecture: x64
